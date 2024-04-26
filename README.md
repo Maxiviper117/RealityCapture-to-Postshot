@@ -1,6 +1,6 @@
 
 
-# RealityCapture to Postshot Conversion Tool
+# RealityCapture to Colmap to Postshot Script
 
 > This script was made to simply the process from this guide: https://gist.github.com/jo-chemla/258e6e40d3d6c2220b29518ff3c17c40
 

@@ -42,6 +42,7 @@ def setup_arg_parser():
     parser = argparse.ArgumentParser(description="Automate image processing workflow.")
     parser.add_argument("--working_dir", type=str, required=True, help="Working directory where 'bundle.out' and 'imagelist.lst' should be located")
     parser.add_argument("--images_dir", type=str, required=True, help="Directory containing images")
+    parser.add_argument('--output_dir', type=str, default='colmap-workspace', help='The output directory where you want to save the files')
     return parser
 
 # Check if required files exist in the specified directory and return their full paths
@@ -94,10 +95,30 @@ def install_package(package_name):
     except subprocess.CalledProcessError:
         print("Error: The package installation failed.")
 
+def clear_directory(directory):
+    for filename in os.listdir(directory):
+        file_path = os.path.join(directory, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(f'Failed to delete {file_path}. Reason: {e}')
+
 
 def main():
     parser = setup_arg_parser()
     args = parser.parse_args()
+
+    OUPUT_DIR = args.output_dir
+
+    # If the directory already exists, delete all internal files first
+    if os.path.exists(OUPUT_DIR):
+        clear_directory(OUPUT_DIR)
+
+    # Create a directory if it does not exist already called 'colmap-workspace'
+    os.makedirs(OUPUT_DIR, exist_ok=True)
 
     scripts_path = get_python_scripts_path()
     colmap_executable = find_colmap()
@@ -159,14 +180,19 @@ def main():
         '--output_path', f'{dataset_colmap_dir}/sparse/0', '--output_type', 'BIN'
     ], check=True)
 
+    # Movethe dataset-colmap, dataset-kapture, and dataset-bundle directories to the OUPUT_DIR directory
+    shutil.move(dataset_colmap_dir, OUPUT_DIR)
+    shutil.move(dataset_kapture_dir, OUPUT_DIR)
+    shutil.move(dataset_bundle_dir, OUPUT_DIR)
 
-    # Create a directory if it does not exist already called 'colmap-workspace'
-    os.makedirs('colmap-workspace', exist_ok=True)
-
-    # Movethe dataset-colmap, dataset-kapture, and dataset-bundle directories to the 'colmap-workspace' directory
-    shutil.move(dataset_colmap_dir, 'colmap-workspace')
-    shutil.move(dataset_kapture_dir, 'colmap-workspace')
-    shutil.move(dataset_bundle_dir, 'colmap-workspace')
+    # Find all files that end with '-local' in the directory
+    local_files = glob.glob(os.path.join(args.working_dir, '*-local*'))
+    for file in local_files:
+        try:
+            os.remove(file)
+            print(f"Deleted file: '{file}'")
+        except Exception as e:
+            print(f'Failed to delete {file}. Reason: {e}')
 
 if __name__ == "__main__":
     main()

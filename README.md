@@ -110,10 +110,13 @@ Another way to import the data into Postshot is to first import the images separ
 
 Then select the image set, then at the bottom right corner, under `Actions` fold, click on `Import Camera Poses` and select the `cameras.bin` file.
 
-![alt text](/media/importposes.mp4)
+![alt text](https://github.com/Maxiviper117/RealityCapture-to-Postshot/assets/11472492/a73dc437-457e-4500-8981-468ecd08cc92)
 
 ## Failed to camera poses error.
 
 If you see this error, when you drag and drop the folder into Postshot, try close and open Postshot again, and drag and drop the folder again.
 
 ![alt text](./media/error.png)
+
+
+

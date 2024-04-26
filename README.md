@@ -35,7 +35,7 @@ cd RealityCapture-to-Postshot
 
 ## Exporting Files from RealityCapture
 
-### Export the Bundler `.out` File
+### Export Step 1: the Bundler `.out` File
 
 Choose a folder to store the exported file.
 
@@ -46,7 +46,7 @@ Choose a folder to store the exported file.
 
 ![alt text](/media/bundler.png)
 
-### Export the Undistorted Images with Image List
+### Export Step 2: the Undistorted Images with Image List
 
 Choose a folder to store the exported file.
 
@@ -73,7 +73,7 @@ The script requires the following directory arguments:
 ### Example Command
 
 ```bash
-py RealityCaptureToColmap.py --images_dir "E:\DEV\python\RealityCapture-to-Postshot\src\images" --working_dir "./src"
+py RealityCaptureToColmap.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" 
 ```
 
 ### Execution

@@ -67,13 +67,22 @@ The script requires the following directory arguments:
 
 - `--images_dir`: The path to the folder containing the undistorted images. (The folder selected in the previous step for the undistorted images)
 - `--working_dir`: The path to the folder containing the `.out` and `.lst` files. (The folder selected in the first step)
+- `--output_dir`: The path to the folder where the script will output the Colmap workspace. (Optional - defualts to a folder named `colmap-workspace` in the working directory)
 
 **Note:** The script expects `colmap.exe` to be exposed on your computer's PATH.
 
 ### Example Command
 
+#### **NOTE: Must run the script from the command line as an administrator.**
+
 ```bash
 py RealityCaptureToColmap.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" 
+```
+
+Option choose the output directory:
+
+```bash
+py RealityCaptureToColmap.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" --output_dir "<full path to output directory>"
 ```
 
 ### Execution
@@ -82,11 +91,11 @@ Run the script from the command line. It will install the necessary `kapture` pa
 
 ## Outputs
 
-Upon successful execution, the script outputs a `colmap-workspace` folder in the working directory with subfolders for different dataset stages. The `dataset-colmap` folder contains the necessary files for Postshot import. Look for the `cameras.bin` in `dataset-colmap\sparse\0`.
+Upon successful execution, the script outputs a `colmap-workspace` (or the specified output directory) folder in the working directory with subfolders for different dataset stages. The `dataset-colmap` folder contains the necessary files for Postshot import. Look for the `cameras.bin` in `dataset-colmap\sparse\0`.
 
 ## Importing to Postshot
 
-Copy the `cameras.bin` file (from the `colmap-workspace\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the **same folder**. Then simply drag and drop the folder into Postshot to start the import process.
+Copy the `cameras.bin` file (from the `<output_dir>\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the **same folder**. Then simply drag and drop the folder into Postshot to start the import process.
 
 You should see this pop-up window, showing `Camera Poses` set to `import`. (this means the that it imported the cameras.bin file successfully), you can now start training.
 

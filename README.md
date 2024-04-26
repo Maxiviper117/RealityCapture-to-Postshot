@@ -95,7 +95,7 @@ Upon successful execution, the script outputs a `colmap-workspace` (or the speci
 
 ![alt text](/media/camerabin.png)
 
-## Importing to Postshot
+## Importing to Postshot (Option 1)
 
 Copy the `cameras.bin` file (from the `<output_dir>\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the **same folder**. Then simply drag and drop the folder into Postshot to start the import process.
 
@@ -103,3 +103,17 @@ You should see this pop-up window, showing `Camera Poses` set to `import`. (this
 
 ![alt text](/media/postshot.png)
 
+## Importing to Postshot (Option 2)
+
+Another way to import the data into Postshot is to first import the images separately, when the pop-up window appears, uncheck option `start training` then click import.
+![alt text](/media/starttrainting.png)
+
+Then select the image set, then at the bottom right corner, under `Actions` fold, click on `Import Camera Poses` and select the `cameras.bin` file.
+
+![alt text](/media/importposes.mp4)
+
+## Failed to camera poses error.
+
+If you see this error, when you drag and drop the folder into Postshot, try close and open Postshot again, and drag and drop the folder again.
+
+![alt text](./media/error.png)

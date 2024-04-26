@@ -117,3 +117,6 @@ Then select the image set, then at the bottom right corner, under `Actions` fold
 If you see this error, when you drag and drop the folder into Postshot, try close and open Postshot again, and drag and drop the folder again.
 
 ![alt text](./media/error.png)
+
+
+

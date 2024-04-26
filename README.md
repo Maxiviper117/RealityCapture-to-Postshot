@@ -93,6 +93,8 @@ Run the script from the command line. It will install the necessary `kapture` pa
 
 Upon successful execution, the script outputs a `colmap-workspace` (or the specified output directory) folder in the working directory with subfolders for different dataset stages. The `dataset-colmap` folder contains the necessary files for Postshot import. Look for the `cameras.bin` in `dataset-colmap\sparse\0`.
 
+![alt text](/media/camerabin.png)
+
 ## Importing to Postshot
 
 Copy the `cameras.bin` file (from the `<output_dir>\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the **same folder**. Then simply drag and drop the folder into Postshot to start the import process.

@@ -110,7 +110,7 @@ Another way to import the data into Postshot is to first import the images separ
 
 Then select the image set, then at the bottom right corner, under `Actions` fold, click on `Import Camera Poses` and select the `cameras.bin` file.
 
-![alt text](/media/importposes.mp4)
+![alt text](/media/poses.png)
 
 ## Failed to camera poses error.
 

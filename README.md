@@ -1,8 +1,8 @@
-### Updated README for GitHub Repository
 
----
 
 # RealityCapture to Postshot Conversion Tool
+
+> This script was made to simply the process from this guide: https://gist.github.com/jo-chemla/258e6e40d3d6c2220b29518ff3c17c40
 
 This repository contains a Python script designed to automate the process of converting images and data from RealityCapture to a format compatible with Postshot via Colmap.
 
@@ -28,13 +28,18 @@ cd RealityCapture-to-Postshot
 
 ### Export the Bundler `.out` File
 
+Choose a folder to store the exported file.
+
 1. Set `Fit` option to `Inner Region`.
 2. Set `Resolution` option to `Fit`.
 3. Ensure `Export Images` is set to `No`.
+   - **We will export the images separately in the next step when exporting the undistorted images with image list.**
 
 ![alt text](/media/bundler.png)
 
 ### Export the Undistorted Images with Image List
+
+Choose a folder to store the exported file.
 
 1. Set `Fit` option to `Inner Region`.
 2. Set `Resolution` option to `Fit`.
@@ -51,8 +56,8 @@ cd RealityCapture-to-Postshot
 
 The script requires the following directory arguments:
 
-- `--images_dir`: The path to the folder containing the undistorted images.
-- `--working_dir`: The path to the folder containing the `.out` and `.lst` files.
+- `--images_dir`: The path to the folder containing the undistorted images. (The folder selected in the previous step for the undistorted images)
+- `--working_dir`: The path to the folder containing the `.out` and `.lst` files. (The folder selected in the first step)
 
 **Note:** The script expects `colmap.exe` to be exposed on your computer's PATH.
 

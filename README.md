@@ -10,7 +10,7 @@ This repository contains a Python script designed to automate the process of con
 
 - Ensure you have Python installed on your system, and the `pip` package manager is functional.
 - Install Colmap on your system. You can download it from the [Colmap github](https://github.com/colmap/colmap).
-- Ensure that `colmap.exe` and `colmap.bat` are exposed on your computer's PATH environment variable. This means that you should be able to run `colmap` from any directory in the command line. If you installed Colmap using the default settings, the necessary files should be located in the `bin` directory of your Colmap installation.
+- Ensure that `colmap.exe` and `colmap.bat` are exposed on your computer's PATH environment variable. This means that you should be able to run `colmap` from any directory in the command line.
 
 **Example (depending on your installation path is):**
 - E:\Program Files\Colmap\COLMAP-3.9.1-windows-cuda (location of colmap.bat)

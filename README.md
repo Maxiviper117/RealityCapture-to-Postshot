@@ -42,7 +42,7 @@ Choose a folder to store the exported file.
 1. Set `Fit` option to `Inner Region`.
 2. Set `Resolution` option to `Fit`.
 3. Ensure `Export Images` is set to `No`.
-   - **We will export the images separately in the next step when exporting the undistorted images with image list.**
+   - **We will export the images separately in the next step when exporting the `Undistorted images with image list.` export option**
 
 ![alt text](/media/bundler.png)
 
@@ -67,9 +67,7 @@ The script requires the following directory arguments:
 
 - `--images_dir`: The path to the folder containing the undistorted images. (The folder selected in the previous step for the undistorted images)
 - `--working_dir`: The path to the folder containing the `.out` and `.lst` files. (The folder selected in the first step)
-- `--output_dir`: The path to the folder where the script will output the Colmap workspace. (Optional - defaults to a folder named `colmap-workspace` in the working directory)
-
-**Note:** The script expects `colmap.exe` to be exposed on your computer's PATH.
+- `--output_dir`: (**OPTIONAL**) - The path to the folder where the script will output the Colmap workspace. (defaults to a folder named `colmap-workspace` in the working directory)
 
 ### Example Command
 
@@ -91,17 +89,25 @@ Run the script from the command line. It will install the necessary `kapture` pa
 
 ## Outputs
 
-Upon successful execution, the script outputs a `colmap-workspace` (or the specified output directory) folder in the working directory with subfolders for different dataset stages. The `dataset-colmap` folder contains the necessary files for Postshot import. Look for the `cameras.bin` in `dataset-colmap\sparse\0`.
+Upon successful execution, the script outputs a `colmap-workspace` (or the specified output directory) folder in the working directory with subfolders for different dataset stages. The `dataset-colmap` folder contains the necessary files for Postshot import. Look for the `.bin` files in `dataset-colmap\sparse\0`.
 
 ![alt text](/media/camerabin.png)
 
 ## Importing to Postshot (Option 1)
 
-Copy the `cameras.bin` file (from the `<output_dir>\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the **same folder**. Then simply drag and drop the folder into Postshot to start the import process.
+Copy the all three `cameras.bin`, `images.bin` and `points3D.bin`  file (from the `<output_dir>\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the **same folder**. (Either all three bin files in that same images folder or all images and bin files in a new folder)
+
+Then simply drag and drop the folder into Postshot to start the import process.
 
 You should see this pop-up window, showing `Camera Poses` set to `import`. (this means the that it imported the cameras.bin file successfully), you can now start training.
 
 ![alt text](/media/postshot.png)
+
+## Failed to import camera poses error.
+
+If you see this error, when you drag and drop the folder into Postshot, try close and open Postshot again, and drag and drop the folder again.
+
+![alt text](./media/error.png)
 
 ## Importing to Postshot (Option 2)
 
@@ -112,11 +118,7 @@ Then select the image set, then at the bottom right corner, under `Actions` fold
 
 ![alt text](/media/poses.png)
 
-## Failed to camera poses error.
 
-If you see this error, when you drag and drop the folder into Postshot, try close and open Postshot again, and drag and drop the folder again.
-
-![alt text](./media/error.png)
 
 
 

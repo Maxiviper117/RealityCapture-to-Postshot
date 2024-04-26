@@ -67,7 +67,7 @@ The script requires the following directory arguments:
 
 - `--images_dir`: The path to the folder containing the undistorted images. (The folder selected in the previous step for the undistorted images)
 - `--working_dir`: The path to the folder containing the `.out` and `.lst` files. (The folder selected in the first step)
-- `--output_dir`: The path to the folder where the script will output the Colmap workspace. (Optional - defualts to a folder named `colmap-workspace` in the working directory)
+- `--output_dir`: The path to the folder where the script will output the Colmap workspace. (Optional - defaults to a folder named `colmap-workspace` in the working directory)
 
 **Note:** The script expects `colmap.exe` to be exposed on your computer's PATH.
 

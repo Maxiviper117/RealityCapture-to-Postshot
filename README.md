@@ -1,86 +1,80 @@
-# RealityCapture to Postshot Workflow
+### Updated README for GitHub Repository
 
-This guide outlines the process for converting RealityCapture output into Colmap format for use with Postshot.
+---
 
-## Installing Kapture
+# RealityCapture to Postshot Conversion Tool
 
-1. **Install Kapture using pip**:
-   Open a terminal and run the following command:
-   ```bash
-   pip install kapture
-   ```
+This repository contains a Python script designed to automate the process of converting images and data from RealityCapture to a format compatible with Postshot via Colmap.
 
-2. **Locate Essential Scripts**:
-   After installation, find `kapture_import_bundler.py` and `kapture_import_colmap.py` scripts. Use the following command in Windows terminal to locate your Python installation directory:
-   ```bash
-   python -c "import sys; print(sys.executable)"
-   ```
-   Note the path, such as `C:\Users\<username>\AppData\Local\Programs\Python\Python312\python.exe`, where the scripts are located.
+## Prerequisites
 
-## Exporting from RealityCapture
+Ensure you have Python installed on your system, and the `pip` package manager is functional. Additionally, ensure that `colmap.exe` is exposed on your computer's PATH environment variable.
 
-1. **Prepare Export Folder**:
-   - Create a folder named `dataset-bundler` to store the exported files.
-   - Set this folder as the destination for the exports.
+## Installation
 
-2. **Export Image List**:
-   - Select the option `Original images with image list` to generate an `imagelist.lst` file and copy the images to the folder.
-   - ![alt text](image.png)
+Clone this repository to your local machine using:
 
-3. **Export Bundle File**:
-   - Choose the `Bundler` option to export a `bundle.out` file.
-   - ![alt text](image-1.png)
+```bash
+git clone https://github.com/your-repository-url.git
+```
 
-## Converting Bundler to Kapture
+Navigate to the cloned directory:
 
-1. **Organize Images**:
-   - Inside `dataset-bundler`, create a subfolder named `images`.
-   - Move all images from `dataset-bundler` to the `images` subfolder.
+```bash
+cd RealityCapture-to-Postshot
+```
 
-2. **Run Kapture Conversion Script**:
-   - Execute the following command to convert the bundler output to Kapture format:
-   ```bash
-   py <path to kapture_import_bundler.py> -v debug -i dataset-bundler\bundle.out -l dataset-bundler\imagelist-local.lst -im dataset-bundler\images --image_transfer link_absolute -o dataset-kapture --add-reconstruction
-   ```
+## Exporting Files from RealityCapture
 
-## Converting Kapture to Colmap
+### Export the Bundler `.out` File
 
-1. **Export Kapture to Colmap Format**:
-   - Use this command to convert the Kapture data to Colmap:
-   ```bash
-   py C:\Python310\Scripts\kapture_export_colmap.py -v debug -f -i dataset-kapture -db dataset-colmap\colmap.db --reconstruction dataset-colmap\reconstruction-txt
-   ```
+1. Set `Fit` option to `Inner Region`.
+2. Set `Resolution` option to `Fit`.
+3. Ensure `Export Images` is set to `No`.
 
-## Converting Colmap TXT to BIN
+![alt text](/media/bundler.png)
 
-1. **Create Directory for Sparse Model**:
-   - Make a directory for the Colmap binary model:
-   ```bash
-   mkdir dataset-colmap\sparse\0
-   ```
+### Export the Undistorted Images with Image List
 
-2. **Convert Model Format**:
-   - Run the Colmap model_converter to switch from TXT to BIN format:
-   ```bash
-   COLMAP.bat model_converter --input_path dataset-colmap\reconstruction-txt --output_path dataset-colmap\sparse\0 --output_type BIN
-   ```
+1. Set `Fit` option to `Inner Region`.
+2. Set `Resolution` option to `Fit`.
+3. Under `Export image settings`, choose the desired image format (preferably `jpg` or `jpeg`).
+4. Set `Naming Convention` to `original file name`.
+5. Enable `Customize image path` and select the folder to store images.
+6. (Optional) Adjust the `Downscale` option if required.
 
-   - This will create a `cameras.bin`, `images.bin`, and `points3D.bin` file in the `sparse\0` directory.
+![alt text](/media/imagelist.png)
+
+## Running the Script
+
+### Configuration
+
+The script requires the following directory arguments:
+
+- `--images_dir`: The path to the folder containing the undistorted images.
+- `--working_dir`: The path to the folder containing the `.out` and `.lst` files.
+
+**Note:** The script expects `colmap.exe` to be exposed on your computer's PATH.
+
+### Example Command
+
+```bash
+py RealityCaptureToColmap.py --images_dir "E:\DEV\python\RealityCapture-to-Postshot\src\images" --working_dir "./src"
+```
+
+### Execution
+
+Run the script from the command line. It will install the necessary `kapture` package into your Python environment and process the provided directories.
+
+## Outputs
+
+Upon successful execution, the script outputs a `colmap-workspace` folder in the working directory with subfolders for different dataset stages. The `dataset-colmap` folder contains the necessary files for Postshot import. Look for the `cameras.bin` in `dataset-colmap\sparse\0`.
 
 ## Importing to Postshot
 
-1. **First import images into postshot**
-   - Open Postshot and import the images from the `images` folder in the `dataset-bundler` directory.
-   - Then in the Postshot workspace, first select image set:
+Move the `cameras.bin` file (from the `colmap-workspace\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the same folder. Then simply drag and drop the folder into Postshot to start the import process.
 
-   ![alt text](image-2.png)
+You should see this pop-up window, showing `Camera Poses` set to import. (this means the that is imported the cameras.bin file successfully), you can now start training.
 
-   - Then at the bottom under actions, import the camera poses from the `sparse\0` directory in the `dataset-colmap` folder.
-
-   ![alt text](image-3.png)
-
-   - In the scene you should see the Point Cloud and Cameras from the Colmap reconstruction. 
-
-2. **Start the training process**
-   - Start the training process.
+![alt text](/media/postshot.png)
 

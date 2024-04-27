@@ -103,6 +103,10 @@ Upon successful execution, the script outputs a `colmap-workspace` (or the speci
 Copy the all three `cameras.bin`, `images.bin` and `points3D.bin`  file (from the `<output_dir>\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the **same folder**. (Either all three bin files in that same images folder or all images and bin files in a new folder)
 
 Then simply drag and drop the folder into Postshot to start the import process.
+<!-- ![alt text](dragdrop.png) -->
+<img src="./media/dragdrop.png" width="600" >
+
+
 
 You should see this pop-up window, showing `Camera Poses` set to `import`. (this means the that it imported the cameras.bin file successfully), you can now start training.
 

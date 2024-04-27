@@ -12,12 +12,17 @@ This repository contains a Python script designed to automate the process of con
 - Install Colmap on your system. You can download it from the [Colmap github](https://github.com/colmap/colmap).
 - Ensure that `colmap.exe` and `colmap.bat` are exposed on your computer's PATH environment variable. This means that you should be able to run `colmap` from any directory in the command line.
 
-**Example (depending on your installation path is):**
-- E:\Program Files\Colmap\COLMAP-3.9.1-windows-cuda (location of colmap.bat)
-- E:\Program Files\Colmap\COLMAP-3.9.1-windows-cuda\bin (location of colmap.exe)
+#### **Example paths for colmap exe and bat (<u>depending on your own installation path you need to define</u>):**
+
+(location of colmap.bat)
+- `E:\Program Files\Colmap\COLMAP-3.9.1-windows-cuda`     
+
+(location of colmap.exe)
+- `E:\Program Files\Colmap\COLMAP-3.9.1-windows-cuda\bin`   
 
 These two paths should be added to your system's PATH as environment variables.
 
+<img src="./media/path.png" width="500" >
 
 ## Installation
 
@@ -107,17 +112,19 @@ You should see this pop-up window, showing `Camera Poses` set to `import`. (this
 
 If you see this error, when you drag and drop the folder into Postshot, try close and open Postshot again, and drag and drop the folder again.
 
-![alt text](./media/error.png)
+<!-- ![alt text](./media/error.png) -->
+<img src="./media/error.png" width="800" >
 
 ## Importing to Postshot (Option 2)
 
 Another way to import the data into Postshot is to first import the images separately, when the pop-up window appears, uncheck option `start training` then click import.
-![alt text](/media/starttrainting.png)
+<!-- ![alt text](/media/starttrainting.png) -->
+<img src="./media/starttrainting.png" width="500" >
 
 Then select the image set, then at the bottom right corner, under `Actions` fold, click on `Import Camera Poses` and select the `cameras.bin` file.
 
-![alt text](/media/poses.png)
-
+<!-- ![alt text](/media/poses.png) -->
+<img src="./media/poses.png" width="800" >
 
 
 

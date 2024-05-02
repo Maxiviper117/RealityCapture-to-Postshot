@@ -1,11 +1,3 @@
-# 1 May 2024 - Update - As of Postshot 0.3.87, the CSV export from the Reality Capture `Internal/External camera parameters` export option + Point Cloud export with ASCII set to false, now works as expected when importing into Postshot with Source images.
-# Thus this script has become redundant. Happy Splatting 🎨🖌️
-
----
----
----
----
-
 # RealityCapture to Colmap to Postshot Script
 
 > This script was made to simplify the process from this guide: https://gist.github.com/jo-chemla/258e6e40d3d6c2220b29518ff3c17c40 by [jo-chemla](https://gist.github.com/jo-chemla)

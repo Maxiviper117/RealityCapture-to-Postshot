@@ -24,14 +24,17 @@ These two paths should be added to your system's PATH as environment variables.
 
 ## Installation
 
-Clone this repository to your local machine using:
 
+- Open your command line terminal and navigate to the directory where you want to store the script.
+Example:
+```bash
+cd C:\<some directory>
+```
+- Clone the repository:
 ```bash
 git clone https://github.com/Maxiviper117/RealityCapture-to-Postshot
 ```
-
-Navigate to the cloned directory:
-
+- Navigate to the cloned directory:
 ```bash
 cd RealityCapture-to-Postshot
 ```
@@ -58,76 +61,44 @@ Choose a folder to store the exported file.
 3. Under `Export image settings`, choose the desired image format (preferably `jpg` or `jpeg`).
 4. Set `Naming Convention` to `original file name`.
 5. Enable `Customize image path` and select the folder to store images.
-6. (Optional) Adjust the `Downscale` option if required.
+   - Just store the images in a `images` folder in the same directory as the `.lout` and `.lst` files.
+6. Leave all other settings as default.
 
 ![alt text](/media/imagelist.png)
 
 ## Running the Script
 
-### Configuration
+Back in your terminal, where you have navigated to the cloned directory, run the following command to start the web GUI interface:
 
-The script requires the following directory arguments:
-
-- `--images_dir`: The path to the folder containing the undistorted images. (The folder selected in the previous step for the undistorted images)
-- `--working_dir`: The path to the folder containing the `.out` and `.lst` files. (The folder selected in the first step)
-- `--output_dir`: (**OPTIONAL**) - The path to the folder where the script will output the Colmap workspace. (defaults to a folder named `colmap-workspace` in the working directory)
-
-### Example Command
-
-#### **NOTE: Must run the script from the command line as an administrator.**
-
-```bash
-py RealityCaptureToColmap.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" 
+```pwsh
+streamlit run ./WebGUI.py
 ```
 
-Option choose the output directory:
+- Here you must provide the directoy path `working directory` to the folder containing the `.out` and `.lst` files
+- As well as the directory path to the folder containing the undistorted images (I added this as you may have choosen a different folder to store the undistorted images in the previous step)
+- You can specify the output directory, but it is optional. And it will default a folder named `colmap-workspace` in the working directory.
 
-```bash
-py RealityCaptureToColmap.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" --output_dir "<full path to output directory>"
-```
-
-### Execution
-
-Run the script from the command line. It will install the necessary `kapture` package into your Python environment and process the provided directories.
-
-## Outputs
-
-Upon successful execution, the script outputs a `colmap-workspace` (or the specified output directory) folder in the working directory with subfolders for different dataset stages. The `dataset-colmap` folder contains the necessary files for Postshot import. Look for the `.bin` files in `dataset-colmap\sparse\0`.
-
-![alt text](/media/camerabin.png)
-
-## Importing to Postshot (Option 1)
-
-Copy the all three `cameras.bin`, `images.bin` and `points3D.bin`  file (from the `<output_dir>\dataset-colmap\sparse\0` folder) and the images (exported from RealityCapture) into the **same folder**. (Either all three bin files in that same images folder or all images and bin files in a new folder)
-
-Then simply drag and drop the folder into Postshot to start the import process.
-<!-- ![alt text](dragdrop.png) -->
-<img src="./media/dragdrop.png" width="600" >
+<img src="./media/webgui.png" width="500" >
 
 
+- Next once you have provided the paths, click on the `Press to Validate Working and Images Directories` button to validate the paths.
+- If the paths are valid, another button will appear -> `Start Conversion Process`, press this button to start the conversion process.
 
-You should see this pop-up window, showing `Camera Poses` set to `import`. (this means the that it imported the cameras.bin file successfully), you can now start training.
+## Process Complete
 
-![alt text](/media/postshot.png)
+Once the process is complete, you will be shown the folder path where the images and bin files are stored. This folder can be simply dragged and dropped into Postshot to start the import process.
 
-## Failed to import camera poses error.
+<img src="./media/processdone.png" width="500" >
+
+<h3 style="color:#90EE90;">Now you can close the browser tab and stop the terminal process.</h3>
+
+---
+
+<h2 style="color:#FF7F7F;">Failed to import camera poses error.</h2>
 
 If you see this error, when you drag and drop the folder into Postshot, try close and open Postshot again, and drag and drop the folder again.
 
 <!-- ![alt text](./media/error.png) -->
 <img src="./media/error.png" width="800" >
-
-## Importing to Postshot (Option 2)
-
-Another way to import the data into Postshot is to first import the images separately, when the pop-up window appears, uncheck option `start training` then click import.
-<!-- ![alt text](/media/starttrainting.png) -->
-<img src="./media/starttrainting.png" width="500" >
-
-Then select the image set, then at the bottom right corner, under `Actions` fold, click on `Import Camera Poses` and select the `cameras.bin` file.
-
-<!-- ![alt text](/media/poses.png) -->
-<img src="./media/poses.png" width="800" >
-
-
 
 

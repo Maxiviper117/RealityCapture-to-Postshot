@@ -1,3 +1,4 @@
 /src
 /colmap-workspace
 HIDDEN-README.md
+*.pyc

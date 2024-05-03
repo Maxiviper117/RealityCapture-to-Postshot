@@ -2,4 +2,4 @@
 /colmap-workspace
 HIDDEN-README.md
 *.pyc
-kapture/__pycache__/path_to_kapture.cpython-312.pyc
+/kapture/__pycache__/

@@ -187,34 +187,47 @@ class MainApp:
             #     st.error("Images directory path is not set. Please enter a valid path.")
             #     st.stop()
                 
-        # Convert from Bundler format to Kapture, followed by Colmap processes
-        step1 = subprocess.run([
-            'python', st.session_state['kapture_import_path'], '-v', 'debug', 
-            '-i', st.session_state['out_file_path'], '-l', st.session_state['local_list_path'],
-            '-im', st.session_state['dataset_bundle_images'], '--image_transfer', 'link_absolute',
-            '-o', st.session_state['dataset_kapture'], '--add-reconstruction'
-        ], check=True)
-        
-        # if step1 succeeded, print success message
-        if step1.returncode == 0:
-            st.success("Bundler to Kapture conversion completed successfully! Continuing to the next step.")
-         
-         # Export Kapture data to Colmap format
-        step2 = subprocess.run([
-            'python', st.session_state['kapture_export_path'],  '-v', 'debug', '-f','-i', st.session_state['dataset_kapture'],
-            '-db', f"{os.path.join(st.session_state['dataset_colmap'], 'colmap.db')}",
-            '--reconstruction', f'{os.path.join(st.session_state["dataset_colmap"], "reconstruction-txt")}'
+        try:
+            # Convert from Bundler format to Kapture, followed by Colmap processes
+            step1 = subprocess.run([
+                'python', st.session_state['kapture_import_path'], '-v', 'debug',
+                '-i', st.session_state['out_file_path'], '-l', st.session_state['local_list_path'],
+                '-im', st.session_state['dataset_bundle_images'], '--image_transfer', 'link_absolute',
+                '-o', st.session_state['dataset_kapture'], '--add-reconstruction'
             ], check=True)
-        
-        # if step2 succeeded, print success message
-        if step2.returncode == 0:
-            st.success("Kapture to Colmap conversion completed successfully! Continuing to the next step.")
 
-        
-        step3 = subprocess.run([
-                st.session_state['colmap_batch_path'], 'model_converter', '--input_path', f'{os.path.join(st.session_state["dataset_colmap"], "reconstruction-txt")}',
-                '--output_path', f'{os.path.join(st.session_state["dataset_colmap"], "sparse", "0")}', '--output_type', 'BIN'
+            # If step1 succeeded, print success message
+            if step1.returncode == 0:
+                st.success("Bundler to Kapture conversion completed successfully! Continuing to the next step.")
+        except subprocess.CalledProcessError as e:
+            st.error("Error during Bundler to Kapture conversion: {}".format(e))
+
+        try:
+            # Export Kapture data to Colmap format
+            colmap_db_path = os.path.join(st.session_state['dataset_colmap'], 'colmap.db')
+            reconstruction_path = os.path.join(st.session_state['dataset_colmap'], 'reconstruction-txt')
+            step2 = subprocess.run([
+                'python', st.session_state['kapture_export_path'], '-v', 'debug', '-f', '-i', st.session_state['dataset_kapture'],
+                '-db', colmap_db_path,
+                '--reconstruction', reconstruction_path
             ], check=True)
+
+            # If step2 succeeded, print success message
+            if step2.returncode == 0:
+                st.success("Kapture to Colmap conversion completed successfully! Continuing to the next step.")
+        except subprocess.CalledProcessError as e:
+            st.error("Error during Kapture to Colmap conversion: {}".format(e))
+
+        try:
+            # Final conversion step
+            input_path = os.path.join(st.session_state['dataset_colmap'], 'reconstruction-txt')
+            output_path = os.path.join(st.session_state['dataset_colmap'], 'sparse', '0')
+            step3 = subprocess.run([
+                st.session_state['colmap_batch_path'], 'model_converter', '--input_path', input_path,
+                '--output_path', output_path, '--output_type', 'BIN'
+            ], check=True)
+        except subprocess.CalledProcessError as e:
+            st.error("Error during final model conversion: {}".format(e))
 
         # if step3 succeeded, print success message
         if step3.returncode == 0:

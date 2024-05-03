@@ -16,6 +16,17 @@ class MainApp:
         if 'output_dir' not in st.session_state:
             st.session_state['output_dir'] = ''  # Set a default value for output_dir here
             
+        if 'dataset_bundle' not in st.session_state:
+            st.session_state['dataset_bundle'] = None
+        if 'dataset_bundle_images' not in st.session_state:
+            st.session_state['dataset_bundle_images'] = None
+        if 'dataset_kapture' not in st.session_state:
+            st.session_state['dataset_kapture'] = None
+        if 'dataset_colmap' not in st.session_state:
+            st.session_state['dataset_colmap'] = None
+        if 'dataset_colmap_sparse' not in st.session_state:
+            st.session_state['dataset_colmap_sparse'] = None
+            
     def update_directories(self):
         if st.session_state['working_dir'] != '' and st.session_state['output_dir'] == '':
             # Set the default output directory only if no output directory has been set
@@ -42,6 +53,7 @@ class MainApp:
             dataset_colmap.mkdir(parents=True, exist_ok=True)
             dataset_colmap_sparse.mkdir(parents=True, exist_ok=True)
             
+            
             st.session_state['dataset_bundle'] = dataset_bundle 
             st.session_state['dataset_bundle_images'] = dataset_bundle_images
             st.session_state['dataset_kapture'] = dataset_kapture
@@ -55,6 +67,7 @@ class MainApp:
             
     # Function to clear output directory
     def clear_output_dir(self):
+        print('output_dir: ',st.session_state['output_dir'])
         # check if the output directory exists in the system if so, delete contents
         if os.path.isdir(st.session_state['output_dir']):
             print(st.session_state['output_dir'])
@@ -280,9 +293,10 @@ def main():
         if st.button("Start Conversion Process"):
             st.write("Starting conversion process...")
             st.write("Please wait, this process may take a few minutes or more depending on the number of images.")
+            
+            main_app.update_directories()
             main_app.clear_output_dir()
             main_app.delete_local_list_files()
-            main_app.update_directories()
             main_app.get_kapture_paths()
             main_app.create_stage_directories()
             main_app.check_required_files()

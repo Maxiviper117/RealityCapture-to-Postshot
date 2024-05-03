@@ -86,8 +86,7 @@ class MainApp:
             if file.suffix in file_extensions:
                 if found_files[file.suffix] is not None:
                     print(f"Error: Multiple '{file.suffix}' files found in the directory '{st.session_state['working_dir']}'.")
-                    st.error("Multiple `.out` or `.lst` files found in the working directory")
-                    st.stop()
+                    st.error("Multiple `.out` or `.lst` files found in the working directory, please ensure there is only one of each. And if there is a `.lst` file that ends with `-local.lst`, please delete it.")
                 found_files[file.suffix] = file
         
         # Check if all required files are found
@@ -190,8 +189,8 @@ class MainApp:
          # Export Kapture data to Colmap format
         step2 = subprocess.run([
             'python', st.session_state['kapture_export_path'],  '-v', 'debug', '-f','-i', st.session_state['dataset_kapture'],
-            '-db', f'{os.path.join(st.session_state['dataset_colmap'], "colmap.db")}',
-            '--reconstruction', f'{os.path.join(st.session_state['dataset_colmap'], "reconstruction-txt")}'
+            '-db', f"{os.path.join(st.session_state['dataset_colmap'], 'colmap.db')}",
+            '--reconstruction', f'{os.path.join(st.session_state["dataset_colmap"], "reconstruction-txt")}'
             ], check=True)
         
         # if step2 succeeded, print success message
@@ -200,8 +199,8 @@ class MainApp:
 
         
         step3 = subprocess.run([
-                st.session_state['colmap_batch_path'], 'model_converter', '--input_path', f'{os.path.join(st.session_state['dataset_colmap'], "reconstruction-txt")}',
-                '--output_path', f'{os.path.join(st.session_state['dataset_colmap'], "sparse", "0")}', '--output_type', 'BIN'
+                st.session_state['colmap_batch_path'], 'model_converter', '--input_path', f'{os.path.join(st.session_state["dataset_colmap"], "reconstruction-txt")}',
+                '--output_path', f'{os.path.join(st.session_state["dataset_colmap"], "sparse", "0")}', '--output_type', 'BIN'
             ], check=True)
 
         # if step3 succeeded, print success message
@@ -236,6 +235,9 @@ def main():
     main_app = MainApp()
     
     st.title("Reality Capture to PostShot Workflow")
+    
+    st.code(f'Working Directory: {st.session_state["working_dir"]}')
+    st.code(f'Images Directory: {st.session_state["images_dir"]}')
     
     # Input for working directory
     st.session_state['working_dir'] = st.text_input("Enter working directory path:")
@@ -292,8 +294,6 @@ def main():
         
             
             st.stop()
-        
-
-
+    
 if __name__ == "__main__":
     main()

@@ -77,13 +77,13 @@ The script requires the following directory arguments:
 #### **NOTE: Must run the script from the command line as an administrator.**
 
 ```bash
-py RealityCaptureToColmap.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" 
+py RealityCaptureToColmap.v2.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" 
 ```
 
 Option choose the output directory:
 
 ```bash
-py RealityCaptureToColmap.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" --output_dir "<full path to output directory>"
+py RealityCaptureToColmap.v2.py --working_dir "<full path to working directory from previous export step 1>" --images_dir "<full path to images folder from previous export step 2>" --output_dir "<full path to output directory>"
 ```
 
 ### Execution

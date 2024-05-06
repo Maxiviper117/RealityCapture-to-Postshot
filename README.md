@@ -1,3 +1,10 @@
+# UPDATE(2024 May 5) Postshot since 0.3.99 can reliably import CSV/PLY from Reality capture. This script is no longer needed.
+
+
+---
+---
+---
+
 # RealityCapture to Colmap to Postshot Script
 
 > This script was made to simplify the process from this guide: https://gist.github.com/jo-chemla/258e6e40d3d6c2220b29518ff3c17c40 by [jo-chemla](https://gist.github.com/jo-chemla)

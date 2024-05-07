@@ -68,7 +68,7 @@ Choose a folder to store the exported file.
 3. Under `Export image settings`, choose the desired image format (preferably `jpg` or `jpeg`).
 4. Set `Naming Convention` to `original file name`.
 5. Enable `Customize image path` and select the folder to store images.
-   - Just store the images in a `images` folder in the same directory as the `.lout` and `.lst` files.
+   - Just store the images in a `images` folder in the same directory as the `.out` and `.lst` files.
 6. Leave all other settings as default.
 
 ![alt text](/media/imagelist.png)
